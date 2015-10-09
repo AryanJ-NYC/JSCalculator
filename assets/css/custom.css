@@ -1,0 +1,10 @@
+.btn, .active, .btn:hover {
+    border-radius: 0;
+    border: solid white thin;
+    background: orange;
+    color: blue;
+}
+
+.row > div {
+    padding: 0;
+}
