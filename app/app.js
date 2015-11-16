@@ -17,14 +17,18 @@ app.controller('calcCtrl', function($scope) {
     $scope.operatorClick = function(event) {
         mathExpression += $scope.displayValue + event.srcElement.value;
         displayValueInitialized = false;
-        console.log(mathExpression);
     };
 
     $scope.evaluateExpression = function() {
         mathExpression += $scope.displayValue + event.srcElement.value;
-        console.log(mathExpression);
         $scope.displayValue = Parser.parse(mathExpression).evaluate();
         mathExpression = '';
+        displayValueInitialized = false;
+    };
+
+    $scope.resetCalculator = function() {
+        mathExpression = '';
+        $scope.displayValue = 0;
         displayValueInitialized = false;
     };
 });
