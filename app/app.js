@@ -2,9 +2,10 @@ app = angular.module('calculatorApp', []);
 
 app.controller('calcCtrl', function($scope) {
     $scope.displayValue = 0;
-    $scope.mathExpression = ''; // TODO Use parser.js (https://github.com/silentmatt/js-expression-eval/tree/master) to parse expression
 
-    var displayValueInitialized = false;
+
+    var displayValueInitialized = false,
+        mathExpression = '';
 
     $scope.numberClick = function(value) {
         if (!displayValueInitialized) {
@@ -14,15 +15,16 @@ app.controller('calcCtrl', function($scope) {
     };
 
     $scope.operatorClick = function(event) {
-        $scope.mathExpression += $scope.displayValue + event.srcElement.value;
+        mathExpression += $scope.displayValue + event.srcElement.value;
         displayValueInitialized = false;
-        console.log($scope.mathExpression);
+        console.log(mathExpression);
     };
 
     $scope.evaluateExpression = function() {
-        $scope.mathExpression += $scope.displayValue + event.srcElement.value;
-        console.log($scope.mathExpression);
-        $scope.displayValue = Parser.parse($scope.mathExpression).evaluate();
+        mathExpression += $scope.displayValue + event.srcElement.value;
+        console.log(mathExpression);
+        $scope.displayValue = Parser.parse(mathExpression).evaluate();
+        mathExpression = '';
         displayValueInitialized = false;
     };
 });
