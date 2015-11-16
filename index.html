@@ -18,7 +18,7 @@
             <button class="btn btn-block" ng-click="numberClick(value)">{{ value }}</button>
           </div>
           <div class="col-md-3">
-            <button class="btn btn-block">x</button>
+            <button class="btn btn-block" id="multiply" value="*" ng-click="operatorClick($event)">x</button>
           </div>
         </div>
 
@@ -28,7 +28,7 @@
             <button class="btn btn-block" ng-click="numberClick(value)">{{ value }}</button>
           </div>
           <div class="col-md-3">
-            <button class="btn btn-block">-</button>
+            <button class="btn btn-block" id="subtract" value="-" ng-click="operatorClick($event)">-</button>
           </div>
         </div>
 
@@ -38,7 +38,7 @@
             <button class="btn btn-block" ng-click="numberClick(value)">{{ value }}</button>
           </div>
           <div class="col-md-3">
-            <button class="btn btn-block">+</button>
+            <button class="btn btn-block" id="add" value="+" ng-click="operatorClick($event)">+</button>
           </div>
         </div>
 
@@ -51,7 +51,7 @@
             <button class="btn btn-block">.</button>
           </div>
           <div class="col-md-3">
-            <button class="btn btn-block">=</button>
+            <button class="btn btn-block" id="equals" ng-click="evaluateExpression()">=</button>
           </div>
         </div>
 
@@ -61,6 +61,6 @@
 </div>
 </body>
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-
+<script type="text/javascript" src="assets/js/parser.js"></script>
 <script type="text/javascript" src="app/app.js"></script>
 </html>
