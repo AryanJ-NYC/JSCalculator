@@ -3,9 +3,8 @@ app = angular.module('calculatorApp', []);
 app.controller('calcCtrl', function($scope) {
     $scope.displayValue = '0';
 
-
     var displayValueInitialized = false,
-        isFloat = false,
+        isDecimal = false,
         isInt = function(number) { return number % 1 === 0},
         mathExpression = '';
 
@@ -23,15 +22,15 @@ app.controller('calcCtrl', function($scope) {
 
     $scope.addDecimal = function() {
         if (!displayValueInitialized) $scope.displayValue = '.';
-        else if (!isFloat) $scope.displayValue += '.';
-        isFloat = true;
+        else if (!isDecimal) $scope.displayValue += '.';
+        isDecimal = true;
         displayValueInitialized = true;
     };
 
     $scope.evaluateExpression = function() {
         mathExpression += $scope.displayValue + event.srcElement.value;
         $scope.displayValue = Parser.parse(mathExpression).evaluate();
-        if (isInt($scope.displayValue)) isFloat = false;
+        if (isInt($scope.displayValue)) isDecimal = false;
         mathExpression = '';
         displayValueInitialized = false;
     };
@@ -40,5 +39,6 @@ app.controller('calcCtrl', function($scope) {
         mathExpression = '';
         $scope.displayValue = '0';
         displayValueInitialized = false;
+        isDecimal = false;
     };
 });
