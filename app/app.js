@@ -18,6 +18,7 @@ app.controller('calcCtrl', function($scope) {
     $scope.operatorClick = function(event) {
         mathExpression += $scope.displayValue + event.srcElement.value;
         displayValueInitialized = false;
+        isDecimal = false;
     };
 
     $scope.addDecimal = function() {
@@ -30,7 +31,7 @@ app.controller('calcCtrl', function($scope) {
     $scope.evaluateExpression = function() {
         mathExpression += $scope.displayValue + event.srcElement.value;
         $scope.displayValue = Parser.parse(mathExpression).evaluate();
-        if (isInt($scope.displayValue)) isDecimal = false;
+        if (isInt(parseInt($scope.displayValue))) isDecimal = false;
         mathExpression = '';
         displayValueInitialized = false;
     };
