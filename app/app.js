@@ -16,9 +16,16 @@ app.controller('calcCtrl', function($scope) {
     };
 
     $scope.operatorClick = function(event) {
-        mathExpression += $scope.displayValue + event.srcElement.value;
-        displayValueInitialized = false;
-        isDecimal = false;
+        if (event.srcElement.value == '%') {
+            $scope.displayValue = (parseInt($scope.displayValue) / 100).toString();
+            isDecimal = true;
+            displayValueInitialized = true;
+        } else {
+            isDecimal = false;
+            mathExpression += $scope.displayValue + event.srcElement.value;
+            displayValueInitialized = false;
+        }
+
     };
 
     $scope.addDecimal = function() {

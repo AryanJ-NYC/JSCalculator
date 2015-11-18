@@ -17,7 +17,7 @@
             <button class="btn btn-block" ng-click="resetCalculator()">AC</button>
           </div>
           <div class="col-md-3 col-xs-3">
-            <button class="btn btn-block">%</button>
+            <button class="btn btn-block" value="%" ng-click="operatorClick($event)">%</button>
           </div>
           <div class="col-md-3 col-xs-3">
             <button class="btn btn-block" value="/" ng-click="operatorClick($event)">&divide;</button>
@@ -70,6 +70,8 @@
       </div>
     </div>
   </div>
+  {{ displayValue }}<br>
+  {{ mathExpression }}
 </div>
 </body>
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
