@@ -5,8 +5,8 @@ app.controller('calcCtrl', function($scope) {
 
     var displayValueInitialized = false,
         isDecimal = false,
-        isInt = function(number) { return number % 1 === 0},
-        mathExpression = '';
+        isInt = function(number) { return number % 1 === 0};
+    $scope.mathExpression = '';
 
     $scope.numberClick = function(value) {
         if (!displayValueInitialized) {
@@ -16,16 +16,17 @@ app.controller('calcCtrl', function($scope) {
     };
 
     $scope.operatorClick = function(event) {
-        if (event.srcElement.value == '%') {
-            $scope.displayValue = (parseInt($scope.displayValue) / 100).toString();
-            isDecimal = true;
-            displayValueInitialized = true;
-        } else {
-            isDecimal = false;
-            mathExpression += $scope.displayValue + event.srcElement.value;
-            displayValueInitialized = false;
+        if (displayValueInitialized) {
+            if (event.srcElement.value == '%') {
+                $scope.displayValue = (parseInt($scope.displayValue) / 100).toString();
+                isDecimal = true;
+                displayValueInitialized = true;
+            } else {
+                isDecimal = false;
+                $scope.mathExpression += $scope.displayValue + event.srcElement.value;
+                displayValueInitialized = false;
+            }
         }
-
     };
 
     $scope.addDecimal = function() {
@@ -36,15 +37,15 @@ app.controller('calcCtrl', function($scope) {
     };
 
     $scope.evaluateExpression = function() {
-        mathExpression += $scope.displayValue + event.srcElement.value;
-        $scope.displayValue = Parser.parse(mathExpression).evaluate();
+        $scope.mathExpression += $scope.displayValue + event.srcElement.value;
+        $scope.displayValue = Parser.parse($scope.mathExpression).evaluate();
         if (isInt(parseInt($scope.displayValue))) isDecimal = false;
-        mathExpression = '';
+        $scope.mathExpression = '';
         displayValueInitialized = false;
     };
 
     $scope.resetCalculator = function() {
-        mathExpression = '';
+        $scope.mathExpression = '';
         $scope.displayValue = '0';
         displayValueInitialized = false;
         isDecimal = false;
