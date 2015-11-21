@@ -2,11 +2,10 @@ app = angular.module('calculatorApp', []);
 
 app.controller('calcCtrl', function($scope) {
     $scope.displayValue = '0';
-
+    $scope.mathExpression = '';
     var displayValueInitialized = false,
         displayIsDecimal = false,
         isInt = function(number) { return number % 1 === 0};
-    $scope.mathExpression = '';
 
     function replaceAt(string, index, character) {
         return string.substr(0, index) + character + string.substr(index + character.length);
@@ -30,15 +29,9 @@ app.controller('calcCtrl', function($scope) {
         var operator = event.srcElement.value;
         var mathExpressionLength = $scope.mathExpression.length;
         if (!mathExpressionEndsInOperator()) {
-            if (event.srcElement.value == '%') {
-                $scope.displayValue = (parseInt($scope.displayValue) / 100).toString();
-                displayIsDecimal = true;
-                displayValueInitialized = true;
-            } else {
-                displayIsDecimal = false;
-                displayValueInitialized = false;
-                $scope.mathExpression += operator;
-            }
+            displayIsDecimal = false;
+            displayValueInitialized = false;
+            $scope.mathExpression += operator;
         } else {
             $scope.mathExpression = replaceAt($scope.mathExpression, mathExpressionLength-1, operator);
         }
