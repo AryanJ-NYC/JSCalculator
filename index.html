@@ -13,8 +13,11 @@
         <div id="display">{{ displayValue }}</div>
 
         <div class="row">
-          <div class="col-md-9 col-xs-9">
+          <div class="col-md-6 col-xs-6">
             <button class="btn btn-block" ng-click="resetCalculator()">AC</button>
+          </div>
+          <div class="col-md-3 col-xs-3">
+            <button class="btn btn-block" value="%" ng-click="operatorClick($event)">%</button>
           </div>
           <div class="col-md-3 col-xs-3">
             <button class="btn btn-block" value="/" ng-click="operatorClick($event)">&divide;</button>

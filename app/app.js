@@ -34,12 +34,17 @@ app.controller('calcCtrl', function($scope) {
         if ($scope.mathExpression !== '') {
             var operator = event.srcElement.value;
             var mathExpressionLength = $scope.mathExpression.length;
-            if (!mathExpressionEndsInOperator()) {
-                displayIsDecimal = false;
-                displayValueInitialized = false;
-                $scope.mathExpression += operator;
+            if (operator == '%') {
+                $scope.displayValue = parseInt($scope.displayValue) / 100;
+                $scope.mathExpression += '/100';
             } else {
-                $scope.mathExpression = replaceAt($scope.mathExpression, mathExpressionLength - 1, operator);
+                if (!mathExpressionEndsInOperator()) {
+                    displayIsDecimal = false;
+                    displayValueInitialized = false;
+                    $scope.mathExpression += operator;
+                } else {
+                    $scope.mathExpression = replaceAt($scope.mathExpression, mathExpressionLength - 1, operator);
+                }
             }
         }
     };
