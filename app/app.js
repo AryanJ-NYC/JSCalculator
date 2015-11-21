@@ -16,13 +16,17 @@ app.controller('calcCtrl', function($scope) {
     }
 
     $scope.numberClick = function(value) {
-        if (!displayValueInitialized) {
+        if (!displayValueInitialized && !mathExpressionEndsInOperator()) {
             $scope.displayValue = value;
-            displayValueInitialized = true;
+            $scope.mathExpression = value;
+        } else if (mathExpressionEndsInOperator()) {
+            $scope.displayValue = value;
+            $scope.mathExpression += value;
         } else {
             $scope.displayValue += value;
+            $scope.mathExpression += value;
         }
-        $scope.mathExpression += value;
+        displayValueInitialized = true;
     };
 
     $scope.operatorClick = function(event) {
@@ -51,8 +55,7 @@ app.controller('calcCtrl', function($scope) {
 
     $scope.evaluateExpression = function() {
         var mathExpressionLength = $scope.mathExpression.length;
-        var expressionEndsInOperator = mathExpressionEndsInOperator();
-        if (expressionEndsInOperator) $scope.mathExpression = $scope.mathExpression.slice(0, mathExpressionLength-1);
+        if (mathExpressionEndsInOperator()) $scope.mathExpression = $scope.mathExpression.slice(0, mathExpressionLength-1);
         $scope.displayValue = $scope.mathExpression = Parser.parse($scope.mathExpression).evaluate().toString();
         if (isInt(parseInt($scope.displayValue))) displayIsDecimal = false;
         displayValueInitialized = false;
