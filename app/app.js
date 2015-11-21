@@ -45,8 +45,13 @@ app.controller('calcCtrl', function($scope) {
     };
 
     $scope.addDecimal = function() {
-        if (!displayValueInitialized) $scope.displayValue = '0.';
-        else if (!displayIsDecimal) $scope.displayValue += '.';
+        if (!displayValueInitialized) {
+            $scope.displayValue = '0.';
+            $scope.mathExpression += $scope.displayValue;
+        } else if (!displayIsDecimal) {
+            $scope.displayValue += '.';
+            $scope.mathExpression += '.';
+        }
         displayValueInitialized = true;
         displayIsDecimal = true;
     };
