@@ -8,15 +8,28 @@ app.controller('calcCtrl', function($scope) {
         isInt = function(number) { return number % 1 === 0};
     $scope.mathExpression = '';
 
+    function replaceAt(string, index, character) {
+        return string.substr(0, index) + character + string.substr(index + character.length);
+    }
+    function mathExpressionEndsInOperator() {
+        var mathExpressionLength = $scope.mathExpression.length;
+        return '+-/*'.indexOf($scope.mathExpression.charAt(mathExpressionLength -1)) > -1;
+    }
+
     $scope.numberClick = function(value) {
         if (!displayValueInitialized) {
             $scope.displayValue = value;
             displayValueInitialized = true;
-        } else $scope.displayValue += value;
+        } else {
+            $scope.displayValue += value;
+        }
+        $scope.mathExpression += value;
     };
 
     $scope.operatorClick = function(event) {
-        if (displayValueInitialized) {
+        var operator = event.srcElement.value;
+        var mathExpressionLength = $scope.mathExpression.length;
+        if (!mathExpressionEndsInOperator()) {
             if (event.srcElement.value == '%') {
                 $scope.displayValue = (parseInt($scope.displayValue) / 100).toString();
                 displayIsDecimal = true;
@@ -24,8 +37,10 @@ app.controller('calcCtrl', function($scope) {
             } else {
                 displayIsDecimal = false;
                 displayValueInitialized = false;
-                $scope.mathExpression += $scope.displayValue + event.srcElement.value;
+                $scope.mathExpression += operator;
             }
+        } else {
+            $scope.mathExpression = replaceAt($scope.mathExpression, mathExpressionLength-1, operator);
         }
     };
 
@@ -38,13 +53,11 @@ app.controller('calcCtrl', function($scope) {
 
     $scope.evaluateExpression = function() {
         var mathExpressionLength = $scope.mathExpression.length;
-        var expressionEndsInOperator = '+-/*'.indexOf($scope.mathExpression.charAt(mathExpressionLength -1)) > -1;
+        var expressionEndsInOperator = mathExpressionEndsInOperator();
         if (expressionEndsInOperator) $scope.mathExpression = $scope.mathExpression.slice(0, mathExpressionLength-1);
-        if (displayValueInitialized) $scope.mathExpression += $scope.displayValue + event.srcElement.value;
-        $scope.displayValue = Parser.parse($scope.mathExpression).evaluate();
+        $scope.displayValue = $scope.mathExpression = Parser.parse($scope.mathExpression).evaluate().toString();
         if (isInt(parseInt($scope.displayValue))) displayIsDecimal = false;
-        $scope.mathExpression = '';
-        displayValueInitialized = true;
+        displayValueInitialized = false;
     };
 
     $scope.resetCalculator = function() {
