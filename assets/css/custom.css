@@ -1,10 +1,36 @@
-.btn, .active, .btn:hover {
+body {
+    margin-top: 15px;
+}
+
+.container-fluid {
+    background-color: #757761;
+}
+
+.btn, .active {
     border-radius: 0;
-    border: solid white thin;
-    background: orange;
-    color: blue;
+    border: solid #094074 thin;
+    background: #FE9000;
+    font-size: 120%;
+}
+
+.operator, .operator:hover {
+    color: #FFF8F0;
+}
+
+.number, #percentage, #all-clear, #decimal {
+    background: #FFDD4A;
+    color: #233D4D;
 }
 
 .row > div {
     padding: 0;
+}
+
+#calculator {
+    border: solid black 1px;
+}
+
+#display {
+    color: #FFF8F0;
+    font-size: 200%;
 }
