@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,73 +9,70 @@
   <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
   <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 </head>
+
 <body>
-<div class="container" ng-app="calculatorApp" ng-controller="calcCtrl">
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3 col-xs-12">
-      <div class="container-fluid" id="calculator">
-        <div class="text-right" id="display">{{ displayValue }}</div>
-        <div class="row">
-          <div class="col-md-6 col-xs-6">
-            <button class="btn btn-block" id="all-clear" ng-click="resetCalculator()">AC</button>
+  <div class="container" ng-app="calculatorApp" ng-controller="calcCtrl">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 col-xs-12">
+        <div class="container-fluid" id="calculator">
+          <div class="text-right" id="display">{{ displayValue }}</div>
+          <div class="row">
+            <div class="col-md-6 col-xs-6">
+              <button class="btn btn-block" id="all-clear" ng-click="resetCalculator()">AC</button>
+            </div>
+            <div class="col-md-3 col-xs-3">
+              <button class="btn btn-block" id="percentage" value="%" ng-click="operatorClick($event)">%</button>
+            </div>
+            <div class="col-md-3 col-xs-3">
+              <button class="btn btn-block operator" value="/" ng-click="operatorClick($event)">&divide;</button>
+            </div>
           </div>
-          <div class="col-md-3 col-xs-3">
-            <button class="btn btn-block" id="percentage" value="%" ng-click="operatorClick($event)">%</button>
+          <!-- Buttons 7-9 -->
+          <div class="row">
+            <div class="col-md-3 col-xs-3" ng-repeat="value in ['7', '8', '9',]">
+              <button class="btn btn-block number" ng-click="numberClick(value)">{{ value }}</button>
+            </div>
+            <div class="col-md-3 col-xs-3">
+              <button class="btn btn-block operator" id="multiply" value="*" ng-click="operatorClick($event)">x</button>
+            </div>
           </div>
-          <div class="col-md-3 col-xs-3">
-            <button class="btn btn-block operator" value="/" ng-click="operatorClick($event)">&divide;</button>
+          <!-- Buttons 4-6 -->
+          <div class="row">
+            <div class="col-md-3 col-xs-3" ng-repeat="value in ['4', '5', '6']">
+              <button class="btn btn-block number" ng-click="numberClick(value)">{{ value }}</button>
+            </div>
+            <div class="col-md-3 col-xs-3">
+              <button class="btn btn-block operator" id="subtract" value="-" ng-click="operatorClick($event)">-</button>
+            </div>
           </div>
-        </div>
-
-        <!-- Buttons 7-9 -->
-        <div class="row">
-          <div class="col-md-3 col-xs-3" ng-repeat="value in ['7', '8', '9',]">
-            <button class="btn btn-block number" ng-click="numberClick(value)">{{ value }}</button>
+          <!-- Buttons 1-3 -->
+          <div class="row">
+            <div class="col-md-3 col-xs-3" ng-repeat="value in ['1', '2', '3']">
+              <button class="btn btn-block number" ng-click="numberClick(value)">{{ value }}</button>
+            </div>
+            <div class="col-md-3 col-xs-3">
+              <button class="btn btn-block operator" id="add" value="+" ng-click="operatorClick($event)">+</button>
+            </div>
           </div>
-          <div class="col-md-3 col-xs-3">
-            <button class="btn btn-block operator" id="multiply" value="*" ng-click="operatorClick($event)">x</button>
-          </div>
-        </div>
-
-        <!-- Buttons 4-6 -->
-        <div class="row">
-          <div class="col-md-3 col-xs-3" ng-repeat="value in ['4', '5', '6']">
-            <button class="btn btn-block number" ng-click="numberClick(value)">{{ value }}</button>
-          </div>
-          <div class="col-md-3 col-xs-3">
-            <button class="btn btn-block operator" id="subtract" value="-" ng-click="operatorClick($event)">-</button>
-          </div>
-        </div>
-
-        <!-- Buttons 1-3 -->
-        <div class="row">
-          <div class="col-md-3 col-xs-3" ng-repeat="value in ['1', '2', '3']">
-            <button class="btn btn-block number" ng-click="numberClick(value)">{{ value }}</button>
-          </div>
-          <div class="col-md-3 col-xs-3">
-            <button class="btn btn-block operator" id="add" value="+" ng-click="operatorClick($event)">+</button>
-          </div>
-        </div>
-
-        <!-- Button 0 -->
-        <div class="row">
-          <div class="col-md-6 col-xs-6">
-            <button class="btn btn-block number" ng-click="numberClick('0')">0</button>
-          </div>
-          <div class="col-md-3 col-xs-3">
-            <button class="btn btn-block" id="decimal" ng-click="addDecimal()">.</button>
-          </div>
-          <div class="col-md-3 col-xs-3">
-            <button class="btn btn-block operator" id="equals" ng-click="evaluateExpression()">=</button>
+          <!-- Button 0 -->
+          <div class="row">
+            <div class="col-md-6 col-xs-6">
+              <button class="btn btn-block number" ng-click="numberClick('0')">0</button>
+            </div>
+            <div class="col-md-3 col-xs-3">
+              <button class="btn btn-block" id="decimal" ng-click="addDecimal()">.</button>
+            </div>
+            <div class="col-md-3 col-xs-3">
+              <button class="btn btn-block operator" id="equals" ng-click="evaluateExpression()">=</button>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
-</div>
 </body>
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/parser.js"></script>
 <script type="text/javascript" src="app/app.js"></script>
+
 </html>
